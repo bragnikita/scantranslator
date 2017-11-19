@@ -1,0 +1,13 @@
+<div class="row folders">
+  <div class="col-xs-12">
+    <h1>Folders index</h1>
+    <div class="item">
+      <%= link_to "/", folders_root_path %>
+    </div>
+      <%= @folders.each do |folder| %>
+        <div class="item">
+          <%= link_to folder.path, folder_path(folder) %>
+        </div>
+      <% end %>
+  </div>
+</div>

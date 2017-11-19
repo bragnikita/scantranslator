@@ -1,0 +1,27 @@
+.ext_images {
+  .image_preview_row {
+    padding: 10px 15px;
+    .media-body {
+      padding-top: 15px;
+    }
+    .codes {
+      white-space: nowrap;
+      font-family: consolas, Courier, monospace;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 20px 10px;
+      margin-bottom: 10px;
+
+      textarea {
+        width: 100%;
+        min-height: 100px;
+        resize: none;
+        overflow-y: scroll;
+        padding: 10px;
+        font-size: smaller;
+      }
+    }
+
+  }
+
+}

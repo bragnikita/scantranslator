@@ -1,0 +1,25 @@
+<div class="media image_preview_row">
+  <div class="media-left">
+    <a href="<%= ext_image.image.url %>">
+      <img class="media-object" src="<%= ext_image.preview %>" style="width: 200px"/>
+    </a>
+  </div>
+  <div class="media-body">
+    <div class="codes">
+      <%= original_url(ext_image.image) %>
+      <br/>
+      <%= original_url(ext_image.image.thumb) %>
+      <br/>
+      <textarea disabled>
+        <a href=" <%= original_url(ext_image.image) %> ">
+          <img src="<%= original_url(ext_image.image.thumb) %>" style="" class=""/>
+        </a>
+      </textarea>
+    </div>
+    <div style="text-align: left">
+      <form method="POST" action="<%= ext_image_delete_path(ext_image) %>">
+        <button class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
