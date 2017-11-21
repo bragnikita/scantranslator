@@ -3,14 +3,14 @@ class AddScanletMainTables < ActiveRecord::Migration[5.1]
   def up
     down
 
-    create_table 'project' do |t|
+    create_table 'projects' do |t|
       t.string 'name', null: false
       t.text 'description'
       t.string 'cover'
       t.timestamps
     end
 
-    create_table 'scantrans_group' do |t|
+    create_table 'scantrans_groups' do |t|
       t.references :project, null: false
       t.string 'name', null: false
       t.integer 'index'
@@ -18,12 +18,12 @@ class AddScanletMainTables < ActiveRecord::Migration[5.1]
     end
 
 
-    create_table 'scan' do |t|
+    create_table 'scan's do |t|
       t.string 'image', null: false
       t.string 'size'
     end
 
-    create_table 'scan_translation' do |t|
+    create_table 'scan_translations' do |t|
       t.text 'translation'
       t.integer 'index'
       t.timestamps
@@ -34,9 +34,9 @@ class AddScanletMainTables < ActiveRecord::Migration[5.1]
   end
 
   def down
-    drop_table :scan_translation if table_exists? :scan_translation
-    drop_table :scan if table_exists? :scan
-    drop_table :scantrans_group if table_exists? :scantrans_group
-    drop_table :project if table_exists? :project
+    drop_table :scan_translations if table_exists? :scan_translations
+    drop_table :scans if table_exists? :scans
+    drop_table :scantrans_groups if table_exists? :scantrans_groups
+    drop_table :projects if table_exists? :projects
   end
 end
