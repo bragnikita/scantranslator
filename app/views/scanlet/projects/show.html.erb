@@ -1,0 +1,20 @@
+<div data-scope="scanlet-groups">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3><%= @project.name %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 listing-container">
+      <% @project.groups.order(:index => :desc).each do |group| %>
+          <%= link_to scanlet_group_path(group), class: 'item-wrapper' do %>
+              <div class="item">
+                <h4><%= group.name %></h4>
+                <span class="updated_at"><%= group.updated_at %></span>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

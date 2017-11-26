@@ -1,0 +1,21 @@
+<div data-scope="scanlet-translation">
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="scan-container">
+
+        <%= image_tag @translation.scan.image, class: 'img-responsive' %>
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="translation-container">
+        <% unless @translation.translation.blank? %>
+            <%= @translation.translation.html_safe %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+</div>

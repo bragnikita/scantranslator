@@ -1,0 +1,38 @@
+[data-scope=scanlet-projects] {
+
+  .listing-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    .item-wrapper {
+      padding: 10px;
+    }
+  }
+
+  .item {
+    text-align: center;
+    height: 150px;
+    min-width: 300px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: lightgray;
+    padding: 10px;
+
+  }
+
+}
+[data-scope=scanlet-groups] {
+  .item-wrapper {
+    height: 50px;
+    width: 100%;
+    display: block;
+    padding: 5px 15px;
+    text-align: left;
+    text-decoration: none;
+  }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

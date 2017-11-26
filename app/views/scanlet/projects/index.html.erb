@@ -1,0 +1,14 @@
+<div data-scope="scanlet-projects">
+  <div class="row">
+    <div class="col-xs-12 listing-container">
+      <% @projects.each do |project| %>
+          <%= link_to scanlet_project_path(project.id), class: 'item-wrapper' do %>
+              <div class="item">
+                <h3><%= project.name %></h3>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

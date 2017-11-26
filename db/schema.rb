@@ -46,7 +46,16 @@ ActiveRecord::Schema.define(version: 20171119130822) do
     t.index ["owner_id"], name: "index_posts_on_owner_id"
   end
 
-  create_table "project", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "scanlet_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id", null: false
+    t.string "name", null: false
+    t.integer "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_scanlet_groups_on_project_id"
+  end
+
+  create_table "scanlet_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "description"
     t.string "cover"
@@ -54,29 +63,20 @@ ActiveRecord::Schema.define(version: 20171119130822) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "scan", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "scanlet_scans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "image", null: false
     t.string "size"
   end
 
-  create_table "scan_translation", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "scanlet_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "translation"
     t.integer "index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "scan_id"
     t.bigint "group_id"
-    t.index ["group_id"], name: "index_scan_translation_on_group_id"
-    t.index ["scan_id"], name: "index_scan_translation_on_scan_id"
-  end
-
-  create_table "scantrans_group", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "project_id", null: false
-    t.string "name", null: false
-    t.integer "index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_scantrans_group_on_project_id"
+    t.index ["group_id"], name: "index_scanlet_translations_on_group_id"
+    t.index ["scan_id"], name: "index_scanlet_translations_on_scan_id"
   end
 
   create_table "taggings", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -116,6 +116,6 @@ ActiveRecord::Schema.define(version: 20171119130822) do
   add_foreign_key "folders", "folders", column: "parent_id"
   add_foreign_key "post_images", "users"
   add_foreign_key "posts", "users", column: "owner_id"
-  add_foreign_key "scan_translation", "scan"
-  add_foreign_key "scan_translation", "scantrans_group", column: "group_id"
+  add_foreign_key "scanlet_translations", "scanlet_groups", column: "group_id"
+  add_foreign_key "scanlet_translations", "scanlet_scans", column: "scan_id"
 end

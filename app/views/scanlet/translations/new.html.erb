@@ -1,0 +1,15 @@
+<div data-scope="scanlet-translation">
+  <div class="row">
+    <div class="col-xs-12">
+
+      <%= form_for @translation, url: scanlet_translations_path, html: {class: 'create_form'} do |f| %>
+          <%= f.hidden_field :group_id %>
+          <%= f.file_field :image, class: 'form-control' %>
+          <%= f.text_area :translation, class: 'form-control', placeholder: "Translation text" %>
+          <%= f.submit "Create" %>
+      <% end %>
+
+    </div>
+  </div>
+
+</div>
