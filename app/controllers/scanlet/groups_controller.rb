@@ -1,4 +1,4 @@
-class Scanlet::GroupsController < ActionController::Base
+class Scanlet::GroupsController < ApplicationController
 
   layout 'application'
 

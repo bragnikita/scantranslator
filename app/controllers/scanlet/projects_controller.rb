@@ -1,4 +1,4 @@
-class Scanlet::ProjectsController < ActionController::Base
+class Scanlet::ProjectsController < < ApplicationController
 
   layout 'application'
 

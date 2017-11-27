@@ -1,4 +1,4 @@
-class Scanlet::TranslationsController < ActionController::Base
+class Scanlet::TranslationsController < ApplicationController
 
   layout 'application'
 

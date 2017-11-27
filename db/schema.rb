@@ -10,43 +10,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901050335) do
+ActiveRecord::Schema.define(version: 20171119130822) do
 
-  create_table "ext_images", force: :cascade do |t|
+  create_table "ext_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "folder_id"
+    t.bigint "folder_id"
     t.index ["folder_id"], name: "index_ext_images_on_folder_id"
   end
 
-  create_table "folders", force: :cascade do |t|
+  create_table "folders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "description_text"
     t.string "path", null: false
-    t.integer "parent_id"
+    t.bigint "parent_id"
     t.index ["parent_id"], name: "index_folders_on_parent_id"
   end
 
-  create_table "post_images", force: :cascade do |t|
+  create_table "post_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "image"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_post_images_on_user_id"
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
-    t.datetime "publish_date"
+    t.timestamp "publish_date"
     t.integer "status", default: 0
     t.text "content"
     t.string "timestamps"
-    t.integer "owner_id"
+    t.bigint "owner_id"
     t.index ["owner_id"], name: "index_posts_on_owner_id"
   end
 
-  create_table "taggings", force: :cascade do |t|
+  create_table "scanlet_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id", null: false
+    t.string "name", null: false
+    t.integer "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_scanlet_groups_on_project_id"
+  end
+
+  create_table "scanlet_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "cover"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "scanlet_scans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "image", null: false
+    t.string "size"
+  end
+
+  create_table "scanlet_translations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "translation"
+    t.integer "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "scan_id"
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_scanlet_translations_on_group_id"
+    t.index ["scan_id"], name: "index_scanlet_translations_on_scan_id"
+  end
+
+  create_table "taggings", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -65,13 +98,13 @@ ActiveRecord::Schema.define(version: 20170901050335) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
+  create_table "tags", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", collation: "utf8_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "login", limit: 50, null: false
     t.string "password", limit: 50, null: false
     t.string "email", limit: 100
@@ -79,4 +112,10 @@ ActiveRecord::Schema.define(version: 20170901050335) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "ext_images", "folders"
+  add_foreign_key "folders", "folders", column: "parent_id"
+  add_foreign_key "post_images", "users"
+  add_foreign_key "posts", "users", column: "owner_id"
+  add_foreign_key "scanlet_translations", "scanlet_groups", column: "group_id"
+  add_foreign_key "scanlet_translations", "scanlet_scans", column: "scan_id"
 end
