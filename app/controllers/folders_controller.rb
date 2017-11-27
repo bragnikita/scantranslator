@@ -1,9 +1,11 @@
-class FoldersController < ActionController::Base
+class FoldersController < ApplicationController
+  include ImagesHelper
 
-  layout 'application'
+  before_action :check_session!
 
   def index
     @folders = Folder.all.order(:name)
+    p @folders.size
     respond_to do |format|
       format.json {render json: {result: 0, data: @folders.to_a.map {|f| {id: f.id, path: f.path, parent: f.parent&.id}}}}
       format.html {render 'index'}
@@ -53,11 +55,21 @@ class FoldersController < ActionController::Base
   end
 
   def create
-    f = Folder.create(folder_params)
+    p = folder_params
+    parent_id = p['parent']
+    parent = parent_id.present? ? Folder.find(parent_id) : nil
+    f = Folder.create(name: p['name'], parent: parent)
     if f.valid?
       respond_to do |format|
         format.json {render json: {result: 0, id: f.id, path: f.path, parent: f.parent.try(:id)}}
-        format.html {redirect_to action: :show, id: f.id}
+        format.html {
+          if request.xhr?
+            @folders = Folder.where(parent: f.parent.try(:id)).order(:name)
+            render :partial => 'folders_list'
+          else
+            redirect_to action: :show, id: f.id
+          end
+        }
       end
     end
   end
@@ -90,10 +102,18 @@ class FoldersController < ActionController::Base
     end
   end
 
+  def upload
+    f = Folder.find(params['id'])
+    render status: 404, json: {} and return if f.nil?
+    @folder = f
+    render 'folders/upload'
+  end
+
 
   private
 
   def folder_params
-    params['folder'].permit(:name, :parent)
+    params.require(:name)
+    params.permit(:name, :parent)
   end
 end

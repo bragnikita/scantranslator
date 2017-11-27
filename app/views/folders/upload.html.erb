@@ -1,0 +1,7 @@
+<h1><%= @folder.path %></h1>
+<div class="back-to-folder">
+  <%= link_to folder_path(@folder) do %>
+    <i class="glyphicon glyphicon-folder-open"></i><span> Back to <%= @folder.name %></span>
+  <% end %>
+</div>
+<%= render partial: 'ext_images/upload_panel', locals: {folder_id: @folder.id}%>

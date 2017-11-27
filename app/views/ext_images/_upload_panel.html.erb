@@ -1,0 +1,19 @@
+<% folder_id = folder_id.present? ? folder_id : '' %>
+<%= form_tag(ext_images_path, method: 'post', multipart: true) do %>
+    <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Add files...</span>
+      <!-- The file input field used as target for the file upload widget -->
+      <%= file_field_tag 'ext_image[image]', multiple: true, id: 'fileupload' %>
+      </span>
+    <span class="btn btn-info clearlist-button">Clear list</span>
+    <%= hidden_field_tag 'folder_id', folder_id, id: 'folder_id' %>
+<% end %>
+<br>
+
+<!-- The global progress bar -->
+<div id="progress" class="progress">
+  <div class="progress-bar progress-bar-success"></div>
+</div>
+<!-- The container for the uploaded files -->
+<div id="files" class="files"></div>

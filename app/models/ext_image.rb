@@ -25,4 +25,10 @@ class ExtImage < ApplicationRecord
     image
   end
 
+  def to_trash
+    trash = Folder.trash
+    self.folder = trash
+    save
+  end
+
 end

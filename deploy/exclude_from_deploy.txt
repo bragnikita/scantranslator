@@ -1,0 +1,11 @@
+.git
+.idea
+/log/*
+/tmp
+*.iml
+/shared
+/log
+/node_modules
+/public/packs/*
+/public/packs-test/*
+/public/uploads

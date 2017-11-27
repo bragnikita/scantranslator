@@ -1,35 +1,16 @@
-// Note: You must restart bin/webpack-dev-server for changes to take effect
+const environment = require('./environment');
 
-/* eslint global-require: 0 */
+let result = environment.toWebpackConfig();
 
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const CompressionPlugin = require('compression-webpack-plugin')
-const sharedConfig = require('./shared.js')
+let aliases = result.resolve.alias || {};
+let fileupload = {
+    'load-image': 'blueimp-load-image/js/load-image.js',
+    'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
+    'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
+    'load-image-scale': 'blueimp-load-image/js/load-image-scale.js',
+    'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
+    'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js'
+};
+result.resolve.alias = Object.assign(aliases, fileupload);
 
-module.exports = merge(sharedConfig, {
-  output: { filename: '[name]-[chunkhash].js' },
-  devtool: 'source-map',
-  stats: 'normal',
-
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      sourceMap: true,
-
-      compress: {
-        warnings: false
-      },
-
-      output: {
-        comments: false
-      }
-    }),
-
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
-    })
-  ]
-})
+module.exports = result;

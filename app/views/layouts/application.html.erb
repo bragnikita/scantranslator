@@ -10,10 +10,21 @@
   <%= yield(:header) if content_for?(:header) %>
   <%= stylesheet_pack_tag 'vendor' %>
   <%= stylesheet_pack_tag 'index' %>
+
 </head>
-<body>
-<div class="container <%= controller_name %>">
+<body data-scope="<%= controller_name %>">
+<% if signed_up? %>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Logout", logout_path %></li>
+        </ul>
+      </div>
+    </nav>
+<% end %>
+<div class="container">
   <%= yield %>
 </div>
+<%= javascript_pack_tag 'index' %>
 </body>
 </html>

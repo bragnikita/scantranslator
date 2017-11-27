@@ -4,13 +4,19 @@ class ExtImageTest < ActiveSupport::TestCase
 
   def setup
     FileUtils.remove_dir file_in ""
+    @image = ExtImage.upload_from_disk Rails.root.join('test', 'fixtures', 'files', 'series_schema.png')
   end
 
   test 'create' do
-    i = ExtImage.upload_from_disk Rails.root.join('test', 'fixtures', 'files', 'series_schema.png')
+    i = @image
     assert i.valid?
-    assert File::exists? file_in "default/#{i.id}/series_schema.png"
-    assert File::exists? file_in "default/#{i.id}/thumb_series_schema.png"
+    assert File.exists? file_in "default/#{i.id}/series_schema.png"
+    assert File.exists? file_in "default/#{i.id}/thumb_series_schema.png"
+  end
+
+  test 'to trash' do
+    @image.to_trash
+    assert_equal '/trash', @image.folder.path
   end
 
   private

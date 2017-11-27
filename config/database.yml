@@ -5,19 +5,17 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-
-development:
-  <<: *default
   adapter: mysql2
-  pool: 5
   username: <%= ENV['MYSQL_USERNAME'] %>
   password: <%= ENV['MYSQL_PASSWORD'] %>
   database: <%= ENV['MYSQL_DB'] %>
   host: <%= ENV['MYSQL_HOST'] %>
   timeout: 5000
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and

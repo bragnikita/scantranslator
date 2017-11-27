@@ -15,7 +15,7 @@
       body = @response.body
       body = JSON.parse body
       p mu_pp body
-      assert_equal 2, body['data'].size
+      assert_equal 4, body['data'].size
       folder = body['data'].find {|f| f['id'] == @folder.id}
       assert_not_nil folder
       assert_equal  @folder.id, folder['id']
@@ -43,8 +43,8 @@
       get "/folder", as: :json
       assert_response 200
       body = JSON.parse @response.body
-      assert_equal 1, body['folders'].size
-      col = body['folders'][0].values
+      assert_equal 3, body['folders'].size
+      col = body['folders'].select {|h| h.value? 'parent'}[0].values
       assert_includes col ,@parent.id
       assert_includes col,"parent"
       assert_includes col,nil
@@ -94,5 +94,10 @@
     test 'Try to get not non-existed folder' do
       get folder_path(-100), as: :json
       assert_response 404
+    end
+
+    test 'Get upload page for folder' do
+      get upload_folder_path(@folder)
+      assert_response 200
     end
   end

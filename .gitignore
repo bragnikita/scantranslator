@@ -30,5 +30,5 @@ log/
 tmp/
 /public/uploads/
 /shared/*
-/public/packs
-/node_modules
+/public/packs-test
+blog-test

@@ -10,6 +10,10 @@ class Folder < ApplicationRecord
   after_save :update_child_paths, if: :saved_change_to_path?
   after_update :update_child_paths, if: :saved_change_to_path?
 
+  def self.trash
+    Folder.find_by_path('/trash')
+  end
+
   protected
   def fix_name
     folder = self.name

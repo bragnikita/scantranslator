@@ -1,39 +1,40 @@
+<input type="hidden" name="scope-object" value="<%= @current.present? ? @current.id : '' %>">
 <div class="row">
   <div class="col-xs-12">
     <h1><%= @current.present? ? @current.path : "/" %></h1>
     <div class="panel panel-default">
       <div class="panel-heading">Folders</div>
       <div class="panel-body">
-
-        <div class="input-group">
-          <input type="text" class="form-control">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Create</button>
-          </span>
+        <div class="errors bg-danger"></div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-7 col-md-5">
+            <div class="input-group">
+              <input type="text" class="form-control" name="folder-name">
+              <span class="input-group-btn">
+                <button class="btn btn-default" name="create-folder" type="button">Create</button>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <ul class="list-group">
-        <%= @folders.each do |f| %>
-            <li class="list-group-item">
-              <%= link_to f.name, folder_path(f) %>
-            </li>
-        <% end %>
-      </ul>
+      <%= render partial: 'folders_list' %>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">Files</div>
-      <div class="panel-body">
-        <a href="javascript:" class="btn btn-success upload">Upload</a>
-      </div>
+    <% if @current.present? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">Files</div>
+          <div class="panel-body">
+            <%= link_to 'Upload images', upload_folder_path(@current), class: 'btn btn-success upload' %>
+          </div>
 
-      <ul class="list-group">
-        <%= @files.each do |f| %>
-            <li class="list-group-item">
-              <%= link_to f.original_filename, f.image.url %>
-            </li>
-        <% end %>
-      </ul>
-    </div>
+          <ul class="list-group images-list">
+            <% @files.each do |f| %>
+                <li class="list-group-item">
+                  <%= render partial: 'ext_images/ext_image', locals: {ext_image: f}  %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
   </div>
 </div>

@@ -1,46 +1,15 @@
-// Note: You must restart bin/webpack-dev-server for changes to take effect
+const environment = require('./environment');
 
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const sharedConfig = require('./shared.js')
-const {settings, output} = require('./configuration.js')
-
-module.exports = merge(sharedConfig, {
-    devtool: 'cheap-eval-source-map',
-
-    stats: {
-        errorDetails: true
-    },
-
-    output: {
-        pathinfo: true
-    },
-
-    devServer: {
-        clientLogLevel: 'none',
-        https: settings.dev_server.https,
-        host: settings.dev_server.host,
-        port: settings.dev_server.port,
-        contentBase: output.path,
-        publicPath: output.publicPath,
-        compress: true,
-        headers: {'Access-Control-Allow-Origin': '*'},
-        historyApiFallback: true,
-        watchOptions: {
-            ignored: /node_modules/
-        }
-    },
-
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: (module) => {
-                return module.context && module.context.indexOf('node_modules') !== -1;
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            minChunks: Infinity
-        })
-    ]
-})
+const result = environment.toWebpackConfig();
+result.output.filename = '[name].js';
+let aliases = result.resolve.alias || {};
+let fileupload = {
+    'load-image': 'blueimp-load-image/js/load-image.js',
+    'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
+    'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
+    'load-image-scale': 'blueimp-load-image/js/load-image-scale.js',
+    'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
+    'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js'
+};
+result.resolve.alias = Object.assign(aliases, fileupload);
+module.exports = result;

@@ -1,0 +1,7 @@
+<ul class="list-group" name="folders-list">
+  <% @folders.each do |f| %>
+      <li class="list-group-item">
+        <%= link_to f.name, folder_path(f) %>
+      </li>
+  <% end %>
+</ul>

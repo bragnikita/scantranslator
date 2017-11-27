@@ -1,0 +1,18 @@
+<% folder_id = @folder.present? ? @folder.id : nil %>
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+      </div>
+      <div class="modal-body">
+        <%= render partial: 'upload_panel', locals: {folder: folder_id} %>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+
+  </div>
+
+</div>

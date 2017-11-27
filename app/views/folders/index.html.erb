@@ -4,7 +4,7 @@
     <div class="item">
       <%= link_to "/", folders_root_path %>
     </div>
-      <%= @folders.each do |folder| %>
+      <% for folder in @folders %>
         <div class="item">
           <%= link_to folder.path, folder_path(folder) %>
         </div>

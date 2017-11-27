@@ -1,6 +1,8 @@
 /**
  * Created by bragnikita on 04.06.17.
  */
+console.log('Hello from deps');
 
-const MESSAGE = 'Hello, world!';
-export default MESSAGE;
+const APP = 'Message';
+
+export {APP};

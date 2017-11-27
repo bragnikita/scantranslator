@@ -23,5 +23,18 @@
     }
 
   }
-
+}
+nav {
+  .navbar-right {
+    float: right;
+  }
+}
+[data-scope=session] {
+  .container > .center-block {
+    margin-top: 25px;
+    max-width: 250px;
+    .bg-danger {
+      padding: 10px;
+    }
+  }
 }

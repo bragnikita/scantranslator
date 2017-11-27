@@ -1,0 +1,39 @@
+#files {
+  .item {
+    overflow: hidden;
+  }
+  .preview {
+    float: left;
+    margin: 5px;
+    width: 320px;
+    canvas {
+      border: 1px solid lightgrey;
+    }
+
+  }
+  .controls {
+    float: left;
+    margin-left: 25px;
+    span {
+      display: block;
+      border-bottom: 1px solid gray;
+      margin-bottom: 10px;
+      font-size: large;
+    }
+    .btn {
+      padding: 10px 24px !important;
+      margin-right: 5px;
+    }
+  }
+}
+
+.image_preview_row {
+  textarea {
+    height: 140px;
+    font-family: console, "Courier New", monospace;
+    width: 100%;
+  }
+}
+form {
+
+}
