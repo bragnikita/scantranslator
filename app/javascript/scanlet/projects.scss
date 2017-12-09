@@ -60,6 +60,10 @@
       margin-left: 10px;
       width: 100%;
     }
+    .cover {
+      min-width: 200px;
+      min-height: 250px;
+    }
     .title {
       border-bottom: 1px solid lightgray;
       [data-display] {

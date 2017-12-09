@@ -3,9 +3,9 @@
     <div id="project-description">
       <div class="cover">
         <% if @project.cover.present? %>
-            <%= image_tag @project.cover.url, class: "img-responsive" %>
+            <%= image_tag @project.cover.url, class: "img-responsive current" %>
         <% else %>
-            <img src="<%= dummy_url %>" alt="">
+            <img src="<%= dummy_url %>" alt="" class="img-responsive current">
         <% end %>
       </div>
       <div class="details">
