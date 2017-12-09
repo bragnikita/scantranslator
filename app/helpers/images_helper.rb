@@ -7,4 +7,5 @@ module ImagesHelper
     end
     url
   end
+
 end

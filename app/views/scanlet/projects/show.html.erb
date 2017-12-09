@@ -1,9 +1,27 @@
 <div data-scope="scanlet-groups">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3><%= @project.name %></h3>
+  <form id="project-description-form">
+    <div id="project-description">
+      <div class="cover">
+        <% if @project.cover.present? %>
+            <%= image_tag @project.cover.url, class: "img-responsive" %>
+        <% else %>
+            <img src="<%= dummy_url %>" alt="">
+        <% end %>
+      </div>
+      <div class="details">
+        <h3 class="title" data-editable="true">
+          <span id="title"><%= @project.name %></span>
+          <input type="text" name="title" data-editor data-display="#title">
+        </h3>
+        <p class="description" data-editable="true">
+        <span id="description" class="content"><%= @project.description || "No description" %></span>
+          <textarea name="description" cols="30" rows="10"
+                    data-display="#description"
+          ></textarea>
+        </p>
+      </div>
     </div>
-  </div>
+  </form>
   <div class="row">
     <div class="col-xs-12 listing-container">
       <% @project.groups.order(:index => :desc).each do |group| %>

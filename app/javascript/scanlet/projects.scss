@@ -1,27 +1,80 @@
 [data-scope=scanlet-projects] {
 
+  padding-top: 25px;
+
+  .toolbar {
+    margin-bottom: 10px;
+  }
+
+  .project-item {
+    margin-bottom: 15px;
+  }
+
+  .toolbar {
+    text-align: right;
+    padding: 3px 17px;
+  }
+
   .listing-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    .item-wrapper {
-      padding: 10px;
+    min-height: 150px;
+    border-left: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+  }
+
+  .project-item {
+    border: 1px solid gray;
+    border-radius: 5px;
+    min-height: 50px;
+    padding: 5px;
+
+    img {
+      max-height: 200px;
+      max-width: 300px;
+      margin: 0 auto;
+      width: auto;
+    }
+
+    .media-left {
+      min-width: 250px;
+    }
+    h4 {
+      padding-left: 5px;
+      border-bottom: 1px solid lightgray;
+    }
+    .description {
+      padding: 5px;
+      border-left: 1px solid lightgrey;
+      border-right: 1px solid lightgray;
     }
   }
 
-  .item {
-    text-align: center;
-    height: 150px;
-    min-width: 300px;
-    border: 1px solid gray;
-    border-radius: 5px;
-    background-color: lightgray;
-    padding: 10px;
-
-  }
-
 }
+
 [data-scope=scanlet-groups] {
+
+  margin-top: 25px;
+
+  #project-description {
+    display: flex;
+    .details {
+      margin-left: 10px;
+      width: 100%;
+    }
+    .title {
+      border-bottom: 1px solid lightgray;
+      [data-display] {
+        width: 100%;
+      }
+    }
+    .description {
+      border: 1px solid lightgray;
+      min-height: 100px;
+      padding: 5px;
+      [data-display] {
+        width: 100%;
+      }
+    }
+  }
   .item-wrapper {
     height: 50px;
     width: 100%;

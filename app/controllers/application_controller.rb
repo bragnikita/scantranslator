@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ImagesHelper
 
   layout 'application'
   helper_method :signed_up?

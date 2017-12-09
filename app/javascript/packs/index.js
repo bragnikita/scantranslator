@@ -1,7 +1,10 @@
 import 'jquery/dist/jquery'
+import 'expose-loader?$!jquery';
+import 'expose-loader?jQuery!jquery';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'blueimp-file-upload/css/jquery.fileupload.css'
 import 'jquery.ui.widget/jquery.ui.widget'
+import 'font-awesome/css/font-awesome.css'
 import 'blueimp-load-image'
 import 'blueimp-file-upload'
 import 'blueimp-file-upload/js/jquery.fileupload-image.js'
@@ -20,5 +23,8 @@ import '../image_upload/image_upload.js'
 import '../image_upload/image_upload.scss'
 import '../scanlet/projects.scss'
 import '../scanlet/groups.scss'
+import '../scanlet/layout.scss'
+import '../scanlet/projects.js'
+import '../context_forms/context-forms'
 
 console.log(APP)

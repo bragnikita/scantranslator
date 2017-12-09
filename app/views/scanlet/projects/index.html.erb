@@ -1,12 +1,32 @@
 <div data-scope="scanlet-projects">
   <div class="row">
+    <div class="col-xs-12 toolbar">
+      <%= link_to "projects/new", class: "btn btn-success" do %>
+          <i class="fa fa-plus"></i>
+          <span>New project</span>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-12 listing-container">
       <% @projects.each do |project| %>
-          <%= link_to scanlet_project_path(project.id), class: 'item-wrapper' do %>
-              <div class="item">
-                <h3><%= project.name %></h3>
-              </div>
-          <% end %>
+          <div class="media project-item">
+            <div class="media-left">
+              <%= link_to scanlet_project_path(project.id) do %>
+                  <img src="<%= project.cover.present? ? project.cover.url : dummy_url %>" class="media-object" alt="">
+              <% end %>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">
+                <%= link_to scanlet_project_path(project.id) do %>
+                    <%= project.name %>
+                <% end %>
+              </h4>
+              <p class="description">
+                <%= project.description.blank? ? "No description" : project.description %>
+              </p>
+            </div>
+          </div>
       <% end %>
     </div>
   </div>
