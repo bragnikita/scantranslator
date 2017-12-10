@@ -1,7 +1,11 @@
 <div data-scope="scanlet-groups">
   <form id="project-description-form">
     <div id="project-description">
-      <div class="cover">
+      <div class="cover"
+           data-upload-path="<%= common_images_upload_path %>"
+           data-form-param-name="cover_id"
+           data-upload-param-name="file"
+      >
         <% if @project.cover.present? %>
             <%= image_tag @project.cover.url, class: "img-responsive current" %>
         <% else %>

@@ -61,8 +61,28 @@
       width: 100%;
     }
     .cover {
-      min-width: 200px;
-      min-height: 250px;
+      position: relative;
+      .dropzone {
+        background: transparent;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .dz-message {
+          background: white;
+          border: 1px solid black;
+          padding: 2px 5px;
+        }
+      }
+      img {
+        max-width: 300px;
+        max-height: 450px;
+      }
     }
     .title {
       border-bottom: 1px solid lightgray;

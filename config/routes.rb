@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get '/folder', to: 'folders#show', as: 'folders_root'
   post '/ext_image/:id/destroy', to: 'ext_images#destroy', as: 'ext_image_delete'
 
+  post '/uploads/common_images', to: 'common_uploads#common_image', as: 'common_images_upload'
+
   namespace :scanlet do
     resources :projects, only: [:index, :show]
     resources :groups, only: [:show]
