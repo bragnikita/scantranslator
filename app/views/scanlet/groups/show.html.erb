@@ -1,23 +1,8 @@
 <div data-scope="scanlet-translations">
   <div class="row">
     <div class="col-xs-12">
-      <a href="<%= scanlet_add_scan_to_group_path(@group) %>" class="btn btn-success">Add scan</a>
+      <h1><%= @presenter.object.name %> ( <%= @presenter.object.id %> )</h1>
+      <span><%= @presenter.object.index %></span>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="listing-container">
-        <% @group.translations.order(:index => :desc).each do |t| %>
-            <div class="grid-cell item-wrapper">
-              <a href="<%= scanlet_translation_path(t) %>" class="item">
-                <%= image_tag t.scan.image, class: 'img-responsive' %>
-              </a>
-            </div>
-        <% end %>
-      </div>
-
-    </div>
-  </div>
-
-
 </div>

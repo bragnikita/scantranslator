@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210000113) do
+ActiveRecord::Schema.define(version: 20171210080730) do
+
+  create_table "common_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_common_groups_on_parent_id"
+  end
+
+  create_table "common_image_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "target_id", null: false
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_common_image_links_on_group_id"
+    t.index ["target_id"], name: "index_common_image_links_on_target_id"
+  end
 
   create_table "common_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "file"
@@ -66,9 +79,10 @@ ActiveRecord::Schema.define(version: 20171210000113) do
   create_table "scanlet_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "description"
-    t.string "cover"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "cover_id"
+    t.index ["cover_id"], name: "index_scanlet_projects_on_cover_id"
   end
 
   create_table "scanlet_scans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -120,10 +134,14 @@ ActiveRecord::Schema.define(version: 20171210000113) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "common_groups", "common_groups", column: "parent_id"
+  add_foreign_key "common_image_links", "common_groups", column: "group_id"
+  add_foreign_key "common_image_links", "common_images", column: "target_id"
   add_foreign_key "ext_images", "folders"
   add_foreign_key "folders", "folders", column: "parent_id"
   add_foreign_key "post_images", "users"
   add_foreign_key "posts", "users", column: "owner_id"
+  add_foreign_key "scanlet_projects", "common_image_links", column: "cover_id"
   add_foreign_key "scanlet_translations", "scanlet_groups", column: "group_id"
   add_foreign_key "scanlet_translations", "scanlet_scans", column: "scan_id"
 end

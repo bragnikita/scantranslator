@@ -2,6 +2,7 @@ import 'jquery/dist/jquery'
 import 'expose-loader?$!jquery';
 import 'expose-loader?jQuery!jquery';
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 import 'blueimp-file-upload/css/jquery.fileupload.css'
 import 'jquery.ui.widget/jquery.ui.widget'
 import 'font-awesome/css/font-awesome.css'

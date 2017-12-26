@@ -1,15 +1,23 @@
 <div data-scope="scanlet-groups">
-  <form id="project-description-form">
+  <%= link_to scanlet_projects_path, class: 'navigation-back' do %>
+    Back to projects
+  <% end %>
+  <form id="project-description-form" method="post" action="<%= @project.id.nil? ? scanlet_projects_path : scanlet_project_path(@project.id) %>" data-ajax="true">
+    <input type="hidden" name="_method" value="<%= @project.id.nil? ? 'post' : 'patch' %>">
+    <div class="controls">
+      <input type="submit" class="btn btn-success" value="Submit"/>
+    </div>
     <div id="project-description">
       <div class="cover"
            data-upload-path="<%= common_images_upload_path %>"
            data-form-param-name="cover_id"
            data-upload-param-name="file"
+           data-editable="image"
       >
         <% if @project.cover.present? %>
-            <%= image_tag @project.cover.url, class: "img-responsive current" %>
+          <%= image_tag @project.cover.target.file.url, class: "img-responsive current" %>
         <% else %>
-            <img src="<%= dummy_url %>" alt="" class="img-responsive current">
+          <img src="<%= dummy_url %>" alt="" class="img-responsive current">
         <% end %>
       </div>
       <div class="details">
@@ -18,7 +26,7 @@
           <input type="text" name="title" data-editor data-display="#title">
         </h3>
         <p class="description" data-editable="true">
-        <span id="description" class="content"><%= @project.description || "No description" %></span>
+          <span id="description" class="content"><%= @project.description || "No description" %></span>
           <textarea name="description" cols="30" rows="10"
                     data-display="#description"
           ></textarea>
@@ -26,17 +34,25 @@
       </div>
     </div>
   </form>
-  <div class="row">
-    <div class="col-xs-12 listing-container">
-      <% @project.groups.order(:index => :desc).each do |group| %>
+  <% unless @project.id.nil? %>
+    <div class="row">
+      <div class="col-xs-12 buttons">
+        <a href="<%= new_scanlet_group_path(project_id: @project.id) %>" class="btn btn-success">
+          <i class="fa fa-plus"></i>
+          <span>New</span>
+        </a>
+      </div>
+      <div class="col-xs-12 listing-container">
+        <% @project.groups.order(:index => :desc).each do |group| %>
           <%= link_to scanlet_group_path(group), class: 'item-wrapper' do %>
-              <div class="item">
-                <h4><%= group.name %></h4>
-                <span class="updated_at"><%= group.updated_at %></span>
-              </div>
+            <div class="item">
+              <h4><%= group.name %></h4>
+              <span class="updated_at"><%= group.updated_at %></span>
+            </div>
           <% end %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 </div>

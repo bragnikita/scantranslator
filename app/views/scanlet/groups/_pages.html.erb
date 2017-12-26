@@ -1,0 +1,17 @@
+<ul>
+  <% translations.each do |translation| %>
+    <li class="table-row">
+      <div class="index">
+        <input type="text" value="<%= translation.index %>" name="translation[<%= translation.index %>][index]" />
+      </div>
+      <div class="preview">
+        <img src="<%= translation.scan.image.url %>"/>
+      </div>
+      <div class="controls">
+        <button class="btn btn-danger">
+          <i class="fa fa-remove"></i>
+        </button>
+      </div>
+    </li>
+  <% end %>
+</ul>

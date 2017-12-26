@@ -2,6 +2,7 @@ class Scanlet::Project < ApplicationRecord
   self.table_name =  'scanlet_projects'
   validates :name, presence: true, uniqueness: true
   has_many :groups, :class_name => 'Group', dependent: :destroy, foreign_key: 'project_id'
+  belongs_to :cover, :class_name => 'Common::ImageLink', optional: true
 
   TEST_IMAGE = Rails.root.join('test', 'fixtures', 'files', 'scan.png')
 

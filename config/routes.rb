@@ -16,8 +16,12 @@ Rails.application.routes.draw do
   post '/uploads/common_images', to: 'common_uploads#common_image', as: 'common_images_upload'
 
   namespace :scanlet do
-    resources :projects, only: [:index, :show]
-    resources :groups, only: [:show]
+    resources :projects
+    resources :groups do
+      member do
+        get 'translations'
+      end
+    end
     resources :translations, only: [:show, :new, :create]
     get '/groups/:group/add_scan', to: 'translations#new', as: 'add_scan_to_group'
   end

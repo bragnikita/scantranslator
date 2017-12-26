@@ -13,7 +13,13 @@ environment.plugins.set('CommonChunkManifest', new webpack.optimize.CommonsChunk
 }));
 environment.plugins.set('ProvideJquery', new webpack.ProvidePlugin({
     $: 'jquery',
-    jQuery: 'jquery'
+    jQuery: 'jquery',
+    _: 'underscore'
 }));
+
+environment.loaders.set('handlebars', {
+   test: /\.handlebars$/,
+   use: 'handlebars-loader'
+});
 
 module.exports = environment;

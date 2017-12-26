@@ -14,25 +14,37 @@ class Scanlet::TranslationsController < ApplicationController
   end
 
   def create
-    scan = Scanlet::Scan.new
-    scan.image = params[:scanlet_translation][:image]
-    scan.save!
-    translation = Scanlet::Translation.new(translation_params)
-    translation.scan = scan
-    unless params[:group].blank?
-      translation.group = Scanlet::Group.find(params[:group])
+    group_id = params[:group_id]
+    image_ids = []
+    unless params[:image_id].nil?
+      image_ids << params[:image_id]
     end
-    result = translation.save!
-    if result
-      redirect_to scanlet_translation_path(translation)
+    unless params[:image_ids].nil?
+      image_ids = params[:image_ids]
+    end
+
+    last = Scanlet::Group.find(group_id).translations.order(:index => :asc).last
+    if last.nil?
+      last_index = 0
     else
-      unless params[:group].blank?
-        @group = Scanlet::Translation.find(params[:scanlet_translation][:group])
-      end
-      @translation = translation
-      render "new", response_code: 402
+      last_index = last.index
+    end
+    ops = []
+    image_ids.each_with_index do |id, index|
+      op = Scanlet::TranslationOperations::AddNewTranslation.new(group_id, id)
+      op.index = last_index + index + 1
+      op.call
+      ops << op
+    end
+
+    if request.xhr?
+      render json: {
+          result: 0,
+          object_id: ops.map {|op| op.result.id }
+      }
     end
   end
+
 
   private
 

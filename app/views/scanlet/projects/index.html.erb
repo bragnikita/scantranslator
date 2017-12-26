@@ -13,7 +13,7 @@
           <div class="media project-item">
             <div class="media-left">
               <%= link_to scanlet_project_path(project.id) do %>
-                  <img src="<%= project.cover.present? ? project.cover.url : dummy_url %>" class="media-object" alt="">
+                  <img src="<%= project.cover.present? ? project.cover.target.file.url : dummy_url %>" class="media-object" alt="">
               <% end %>
             </div>
             <div class="media-body">

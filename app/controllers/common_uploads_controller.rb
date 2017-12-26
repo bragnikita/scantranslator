@@ -2,10 +2,10 @@ class CommonUploadsController < ApplicationController
 
   def common_image
 
-    unless params[:object_id].blank?
-      image = CommonImage.find(params[:object_id])
+    if params[:object_id].blank?
+      image = Common::Image.new
     else
-      image = CommonImage.new
+      image = Common::Image.find(params[:object_id])
     end
     image.file = params[:file]
     image.save!
